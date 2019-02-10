@@ -15,5 +15,8 @@
     "Slack"
   ],
   "author": "Sarah French",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "slack-node": "^0.1.8"
+  }
 }

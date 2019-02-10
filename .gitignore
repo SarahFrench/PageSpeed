@@ -1,6 +1,7 @@
 #Files from project
 response.json
 API-key.js
+webHooks.js
 
 #DS_Store
 .DS_Store
