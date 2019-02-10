@@ -1,3 +1,10 @@
+#Files from project
+response.json
+API-key.js
+
+#DS_Store
+.DS_Store
+
 # Logs
 logs
 *.log
