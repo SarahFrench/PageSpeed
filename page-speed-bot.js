@@ -17,7 +17,10 @@ function postMessage(slack, message){
     username: "PageSpeedBot",
     text: `${message}`
   }, function(err, response) {
-    console.log(response);
+    // console.log(response);
+    if (err){
+      console.log(err);
+    }
   });
 }
 
