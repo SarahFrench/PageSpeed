@@ -1,0 +1,19 @@
+{
+  "name": "pagespeedstitch",
+  "version": "1.0.0",
+  "description": "A project for detecting pagespeed and sending notifications via Slack",
+  "main": "get-page-speed.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "page",
+    "speed",
+    "Google",
+    "PageSpeed",
+    "Insights",
+    "Slack"
+  ],
+  "author": "Sarah French",
+  "license": "ISC"
+}
