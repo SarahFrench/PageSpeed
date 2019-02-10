@@ -15,7 +15,7 @@ function postMessage(slack, message){
   slack.webhook({
     channel: "#@sarah.french",
     username: "PageSpeedBot",
-    text: "This is posted to Sarah French and comes from a bot named PageSpeedBot."
+    text: `${message}`
   }, function(err, response) {
     console.log(response);
   });
@@ -26,8 +26,6 @@ function getPageStats(){
     request(`${BASE_URL}?url=https%3A%2F%2Fwww.mumsnet.com&category=performance&locale=UK&key=${API_KEY}`,
        (error, response, body) => {
          let stats = JSON.parse(response.body);
-         // let metrics = stats.lighthouseResult.audits['metrics']['details']['items'][0];
-         // let firstCPUIdle = metrics.firstCPUIdle;
          resolve(stats)
          reject(error)
     });
@@ -42,23 +40,12 @@ function getPageSpeedStat(stats){
   })
 }
 
-Promise.all([getPageStats(), getPageStats()])
-  .then(data =>{
-    let speeds = [];
-    data.forEach( stats => {
-      speeds.push(getPageSpeedStat(stats));
-    })
-    return speeds
-  })
-  .then(speeds => {
-    console.log(speeds);
-  })
-
 // Returns one page speed request stat
-  // getPageStats()
-  //   .then(stats => {
-  //     return getPageSpeedStat(stats)
-  //   })
-  //   .then(speed => {
-  //     console.log(speed)
-  //   })
+  getPageStats()
+    .then(stats => {
+      return getPageSpeedStat(stats)
+    })
+    .then(speed => {
+      let message = `Page speed of https://www.mumsnet.com was just measured as ${speed}ms`
+      postMessage(setWebhook(WEBHOOK_SARAH_FRENCH), message)
+    })
