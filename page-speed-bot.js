@@ -15,6 +15,7 @@ function postMessage(slack, message){
   slack.webhook({
     channel: "#@sarah.french",
     username: "PageSpeedBot",
+    as_user: false,
     text: `${message}`
   }, function(err, response) {
     // console.log(response);
@@ -35,7 +36,7 @@ function getPageStats(){
   });
 }
 
-function getPageSpeedStat(stats){
+function getFirstCPUIdle(stats){
   return new Promise ((resolve, reject) => {
     let metrics = stats.lighthouseResult.audits['metrics']['details']['items'][0];
     let firstCPUIdle = metrics.firstCPUIdle;
@@ -43,12 +44,21 @@ function getPageSpeedStat(stats){
   })
 }
 
+function getFirstContentfulPaint(stats){
+  return new Promise ((resolve, reject) => {
+    let firstContentfulPaint = stats.loadingExperience["metrics"]["FIRST_CONTENTFUL_PAINT_MS"]["percentile"];
+    resolve(firstContentfulPaint)
+  })
+}
+
 // Returns one page speed request stat
   getPageStats()
     .then(stats => {
-      return getPageSpeedStat(stats)
+      return Promise.all([getFirstContentfulPaint(stats), getFirstCPUIdle(stats)])
     })
     .then(speed => {
-      let message = `Page speed of https://www.mumsnet.com was just measured as ${speed}ms`
+      speedOfFCP = speed[0]/1000;
+      speedOfFirstCPUIdle = speed[1]/1000;
+      let message = `In 90% of users visits to https://www.mumsnet.com, First Contentful Paint took \`${speedOfFCP}\` seconds or fewer. \nIn lab tests, the CPU became idle in \`${speedOfFirstCPUIdle}\` seconds`
       postMessage(setWebhook(WEBHOOK_SARAH_FRENCH), message)
     })
