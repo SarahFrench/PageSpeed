@@ -1,4 +1,11 @@
 # PageSpeedMonitor
+
+# APIs used:
+- Google's PageSpeed Insights API: https://developers.google.com/speed/pagespeed/insights/
+- Slack API: https://api.slack.com/
+
+# Progress:
+
 **DONE:**
 
 - Use Google PageInsights API to get page speed info about Mumsnet website
