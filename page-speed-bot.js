@@ -59,6 +59,6 @@ function getFirstContentfulPaint(stats){
     .then(speed => {
       speedOfFCP = speed[0]/1000;
       speedOfFirstCPUIdle = speed[1]/1000;
-      let message = `In 90% of users visits to https://www.mumsnet.com, First Contentful Paint took \`${speedOfFCP}\` seconds or fewer. \nIn lab tests, the CPU became idle in \`${speedOfFirstCPUIdle}\` seconds`
+      let message = `In 90% of users visits to https://www.mumsnet.com, First Contentful Paint took \`${speedOfFCP}\` seconds or less. \nIn lab tests, the CPU became idle in \`${speedOfFirstCPUIdle}\` seconds`
       postMessage(setWebhook(WEBHOOK_SARAH_FRENCH), message)
     })
